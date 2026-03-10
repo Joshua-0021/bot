@@ -4,4 +4,6 @@ WORKDIR /app
 
 COPY . /app
 
+ENTRYPOINT []
+
 CMD rasa run --enable-api --cors "*" --port 10000
