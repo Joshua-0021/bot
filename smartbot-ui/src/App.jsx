@@ -21,7 +21,7 @@ function App() {
     try {
 
       const response = await fetch(
-        "http://localhost:5005/webhooks/rest/webhook",
+        "https://bot-l9vf.onrender.com/webhooks/rest/webhook",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -65,7 +65,7 @@ function App() {
     try {
 
       const response = await fetch(
-        "http://localhost:5005/webhooks/rest/webhook",
+        "https://bot-l9vf.onrender.com/webhooks/rest/webhook",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
