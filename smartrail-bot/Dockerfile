@@ -6,4 +6,6 @@ COPY . /app
 
 ENTRYPOINT []
 
-CMD rasa run --enable-api --cors "*" --port 10000
+RUN chmod +x /app/start.sh
+
+CMD ["./start.sh"]
