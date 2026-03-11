@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from "react";
 
 function App() {
@@ -8,6 +7,8 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
 
   const chatEndRef = useRef(null);
+
+  const API_URL = "https://bot-l9vf.onrender.com";
 
   const sendMessage = async () => {
 
@@ -21,10 +22,12 @@ function App() {
     try {
 
       const response = await fetch(
-        "https://bot-l9vf.onrender.com/webhooks/rest/webhook",
+        `${API_URL}/webhooks/rest/webhook`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json"
+          },
           body: JSON.stringify({
             sender: "user",
             message: userText
@@ -34,7 +37,7 @@ function App() {
 
       const data = await response.json();
 
-      if (Array.isArray(data)) {
+      if (Array.isArray(data) && data.length > 0) {
 
         const botMessages = data.map(msg => ({
           sender: "bot",
@@ -43,6 +46,13 @@ function App() {
         }));
 
         setChat(prev => [...prev, ...botMessages]);
+
+      } else {
+
+        setChat(prev => [
+          ...prev,
+          { sender: "bot", text: "🤖 Sorry, I didn't understand that." }
+        ]);
 
       }
 
@@ -65,10 +75,12 @@ function App() {
     try {
 
       const response = await fetch(
-        "https://bot-l9vf.onrender.com/webhooks/rest/webhook",
+        `${API_URL}/webhooks/rest/webhook`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json"
+          },
           body: JSON.stringify({
             sender: "user",
             message: payload
@@ -78,7 +90,7 @@ function App() {
 
       const data = await response.json();
 
-      if (Array.isArray(data)) {
+      if (Array.isArray(data) && data.length > 0) {
 
         const botMessages = data.map(msg => ({
           sender: "bot",
@@ -101,19 +113,17 @@ function App() {
 
   };
 
+
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chat]);
 
 
-
-  /* NEW FUNCTION ADDED */
   const handleClose = () => {
     setIsOpen(false);
-    setChat([]);     
-    setMessage("");  
+    setChat([]);
+    setMessage("");
   };
-
 
 
   return (
@@ -254,7 +264,6 @@ const styles = {
     height: "90px"
   },
 
-
   chatContainer: {
     position: "fixed",
     bottom: "20px",
@@ -269,7 +278,6 @@ const styles = {
     overflow: "hidden"
   },
 
-
   header: {
     padding: "18px",
     background: "#2563eb",
@@ -281,12 +289,10 @@ const styles = {
     gap: "10px"
   },
 
-
   headerIcon: {
     width: "40px",
     height: "40px"
   },
-
 
   closeBtn: {
     marginLeft: "auto",
@@ -294,13 +300,11 @@ const styles = {
     fontSize: "18px"
   },
 
-
   chatBox: {
     flex: 1,
     padding: "15px",
     overflowY: "auto"
   },
-
 
   userContainer: {
     display: "flex",
@@ -308,13 +312,11 @@ const styles = {
     marginBottom: "10px"
   },
 
-
   botContainer: {
     display: "flex",
     justifyContent: "flex-start",
     marginBottom: "10px"
   },
-
 
   userMessage: {
     background: "#2563eb",
@@ -326,7 +328,6 @@ const styles = {
     lineHeight: "1.6"
   },
 
-
   botMessage: {
     background: "#1f2937",
     color: "white",
@@ -337,14 +338,12 @@ const styles = {
     lineHeight: "1.6"
   },
 
-
   buttonContainer: {
     marginTop: "8px",
     display: "flex",
     flexWrap: "wrap",
     gap: "6px"
   },
-
 
   optionButton: {
     padding: "8px 12px",
@@ -356,13 +355,11 @@ const styles = {
     cursor: "pointer"
   },
 
-
   inputArea: {
     display: "flex",
     padding: "10px",
     borderTop: "1px solid #1f2937"
   },
-
 
   input: {
     flex: 1,
@@ -372,7 +369,6 @@ const styles = {
     backgroundColor: "#1e293b",
     color: "white"
   },
-
 
   sendButton: {
     marginLeft: "8px",
