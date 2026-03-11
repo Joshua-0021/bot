@@ -4,8 +4,6 @@ WORKDIR /app
 
 COPY . /app
 
-ENTRYPOINT []
+RUN rasa train
 
-RUN chmod +x /app/start.sh
-
-CMD ["./start.sh"]
+CMD rasa run --enable-api --cors "*" --port $PORT
